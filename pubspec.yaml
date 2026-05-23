@@ -85,7 +85,7 @@ flutter:
 
     - family: RobotoCondensed
       fonts:
-        - asset: fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf
+        - asset: fonts/Roboto_Condensed/static/RobotoCondensed-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

@@ -1,17 +1,50 @@
-# lab10_fmas
+# Laboratorio 10 - Flutter HBO Max Home
 
-A new Flutter project.
+Este laboratorio desarrolla una pantalla Home inspirada en la aplicacion movil de HBO Max usando Flutter. La interfaz muestra contenido multimedia mediante imagenes locales, secciones tipo catalogo, navegacion inferior, categorias interactivas y un tema visual oscuro.
 
-## Getting Started
+## Elemento de la capacidad
 
-This project is a starting point for a Flutter application.
+Comprender a utilizar y crear:
 
-A few resources to get you started if this is your first Flutter project:
+- ListViews
+- ListTiles
+- Listas y Mapas
+- Rutas
+- Tema Global
+- Cards
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Trabajo realizado
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Creacion de la pantalla principal `Home` en Flutter.
+- Uso de `ListView` para mostrar secciones desplazables.
+- Uso de listas de datos para organizar peliculas y series.
+- Implementacion de navegacion inferior interactiva.
+- Configuracion de tema global desde `main.dart`.
+- Uso de imagenes locales desde la carpeta `assets/`.
+- Configuracion de fuentes personalizadas desde la carpeta `fonts/`.
+
+## Fuentes utilizadas
+
+Se agregaron tres tipos de letra al proyecto:
+
+- `ArchivoBlack`
+- `BebasNeue`
+- `RobotoCondensed`
+
+Estas fuentes fueron declaradas en `pubspec.yaml` y aplicadas dentro de la interfaz.
+
+## Capturas
+
+![Captura 1](capturas/cap1.png)
+
+![Captura 2](capturas/cap2.png)
+
+![Captura 3](capturas/Cap3.png)
+
+![Captura 4](capturas/cap4.png)
+
+## Autor
+
+Fernando Mas Pinto
+
+Alumno del 5to Ciclo de la carrera Diseño y Desarrollo de Software.
