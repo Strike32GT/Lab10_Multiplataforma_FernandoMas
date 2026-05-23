@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'HBO Max Home',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6D35FF)),
-        fontFamily: 'Roboto',
+        fontFamily: 'RobotoCondensed',
         scaffoldBackgroundColor: Colors.black,
         useMaterial3: true,
       ),

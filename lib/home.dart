@@ -104,7 +104,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                   _SimpleLibraryPage(
                     title: 'Movies',
-                    movies: _movies.where((movie) => movie.kind != MovieKind.hero).toList(),
+                    movies: _movies
+                        .where((movie) => movie.kind != MovieKind.hero)
+                        .toList(),
                     onMovieTap: _showMovie,
                   ),
                   _SimpleLibraryPage(
@@ -184,8 +186,8 @@ class _TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 94,
-      padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+      height: 98,
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
       color: Colors.black,
       child: Stack(
         children: [
@@ -265,11 +267,11 @@ class _DcLogo extends StatelessWidget {
         ],
       ),
       child: const Text(
-        'DC',
+        'MAX',
         style: TextStyle(
           color: Color(0xFF59C7FF),
+          fontFamily: 'ArchivoBlack',
           fontSize: 21,
-          fontWeight: FontWeight.w900,
         ),
       ),
     );
@@ -363,23 +365,31 @@ class _HomeSections extends StatelessWidget {
     );
     final posters = movies.where((movie) => movie.kind == MovieKind.poster).toList();
     final wide = movies.where((movie) => movie.kind == MovieKind.wide).toList();
+    final orderedMovies = [
+      hero,
+      ...posters,
+      ...wide,
+    ];
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(7, 0, 7, 18),
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 22),
       children: [
         _HeroImage(movie: hero, onTap: () => onMovieTap(hero)),
-        const SizedBox(height: 13),
-        const _SectionTitle('Epic Origin Stories'),
-        const SizedBox(height: 8),
-        _HorizontalPosters(movies: posters, onMovieTap: onMovieTap),
-        const SizedBox(height: 13),
-        const _SectionTitle('More to Watch'),
-        const SizedBox(height: 8),
-        _HorizontalWideMovies(movies: wide, onMovieTap: onMovieTap),
-        const SizedBox(height: 13),
-        const _SectionTitle('All Movies'),
-        const SizedBox(height: 8),
-        _MovieGrid(movies: movies, onMovieTap: onMovieTap),
+        const SizedBox(height: 14),
+        _SectionBlock(
+          title: 'Epic Origin Stories',
+          child: _HorizontalPosters(movies: posters, onMovieTap: onMovieTap),
+        ),
+        const SizedBox(height: 16),
+        _SectionBlock(
+          title: 'More to Watch',
+          child: _HorizontalWideMovies(movies: wide, onMovieTap: onMovieTap),
+        ),
+        const SizedBox(height: 16),
+        _SectionBlock(
+          title: 'All Movies',
+          child: _MovieGrid(movies: orderedMovies, onMovieTap: onMovieTap),
+        ),
       ],
     );
   }
@@ -395,10 +405,29 @@ class _HeroImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return _TappableImage(
       movie: movie,
-      height: 126,
+      height: 132,
       width: double.infinity,
       alignment: const Alignment(0, -0.2),
       onTap: onTap,
+    );
+  }
+}
+
+class _SectionBlock extends StatelessWidget {
+  const _SectionBlock({required this.title, required this.child});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _SectionTitle(title),
+        const SizedBox(height: 9),
+        child,
+      ],
     );
   }
 }
@@ -414,8 +443,10 @@ class _SectionTitle extends StatelessWidget {
       text,
       style: const TextStyle(
         color: Colors.white,
-        fontSize: 14,
-        fontWeight: FontWeight.w800,
+        fontFamily: 'BebasNeue',
+        fontSize: 17,
+        fontWeight: FontWeight.w400,
+        height: 1,
       ),
     );
   }
@@ -430,17 +461,18 @@ class _HorizontalPosters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 148,
+      height: 154,
       child: ListView.separated(
+        clipBehavior: Clip.none,
         scrollDirection: Axis.horizontal,
         itemCount: movies.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: 9),
         itemBuilder: (context, index) {
           final movie = movies[index];
           return _TappableImage(
             movie: movie,
-            width: 138,
-            height: 148,
+            width: 134,
+            height: 154,
             alignment: Alignment.topCenter,
             onTap: () => onMovieTap(movie),
           );
@@ -459,17 +491,18 @@ class _HorizontalWideMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 69,
+      height: 76,
       child: ListView.separated(
+        clipBehavior: Clip.none,
         scrollDirection: Axis.horizontal,
         itemCount: movies.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: 9),
         itemBuilder: (context, index) {
           final movie = movies[index];
           return _TappableImage(
             movie: movie,
-            width: 138,
-            height: 69,
+            width: 136,
+            height: 76,
             alignment: Alignment.center,
             onTap: () => onMovieTap(movie),
           );
@@ -493,9 +526,9 @@ class _MovieGrid extends StatelessWidget {
       itemCount: movies.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-        childAspectRatio: 1.7,
+        mainAxisSpacing: 9,
+        crossAxisSpacing: 9,
+        childAspectRatio: 1.42,
       ),
       itemBuilder: (context, index) {
         final movie = movies[index];
@@ -525,11 +558,12 @@ class _SimpleLibraryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(7, 0, 7, 18),
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 22),
       children: [
-        _SectionTitle(title),
-        const SizedBox(height: 8),
-        _MovieGrid(movies: movies, onMovieTap: onMovieTap),
+        _SectionBlock(
+          title: title,
+          child: _MovieGrid(movies: movies, onMovieTap: onMovieTap),
+        ),
       ],
     );
   }
@@ -546,15 +580,20 @@ class _DownloadsPage extends StatelessWidget {
       MovieItem('Peacemaker', 'assets/Peacemaker.webp', MovieKind.hero),
       MovieItem('The Last of Us', 'assets/The Last of Us.webp', MovieKind.wide),
       MovieItem('Titans', 'assets/Titans.jpg', MovieKind.poster),
-      MovieItem('Batman', 'assets/Batman Caballero de la Noche.jpg', MovieKind.wide),
+      MovieItem(
+        'Batman',
+        'assets/Batman Caballero de la Noche.jpg',
+        MovieKind.wide,
+      ),
     ];
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(7, 0, 7, 18),
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 22),
       children: [
-        const _SectionTitle('Downloads'),
-        const SizedBox(height: 8),
-        _MovieGrid(movies: downloads, onMovieTap: onMovieTap),
+        _SectionBlock(
+          title: 'Downloads',
+          child: _MovieGrid(movies: downloads, onMovieTap: onMovieTap),
+        ),
       ],
     );
   }
@@ -576,11 +615,13 @@ class _SearchPageState extends State<_SearchPage> {
   @override
   Widget build(BuildContext context) {
     final results = widget.movies
-        .where((movie) => movie.title.toLowerCase().contains(_query.toLowerCase()))
+        .where(
+          (movie) => movie.title.toLowerCase().contains(_query.toLowerCase()),
+        )
         .toList();
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(7, 0, 7, 18),
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 22),
       children: [
         TextField(
           onChanged: (value) => setState(() => _query = value),
@@ -629,10 +670,11 @@ class _TappableImage extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(2),
+          borderRadius: BorderRadius.circular(4),
           child: Ink(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
+              color: const Color(0xFF101010),
+              borderRadius: BorderRadius.circular(4),
               image: DecorationImage(
                 image: AssetImage(movie.asset),
                 fit: BoxFit.cover,
